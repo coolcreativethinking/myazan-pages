@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Azan - Setup Guide</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .hero {
+            background: linear-gradient(135deg, #1a5632 0%, #0d2b1a 100%);
+            color: white;
+            text-align: center;
+            padding: 48px 20px 40px;
+        }
+        .hero h1 { font-size: 32px; margin-bottom: 8px; }
+        .hero p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .container { max-width: 720px; margin: 0 auto; padding: 0 20px 60px; }
+
+        .section-title {
+            font-size: 24px;
+            color: #1a5632;
+            margin: 40px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #1a5632;
+        }
+        .overview {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .overview p { font-size: 16px; color: #555; }
+        .time-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #1a5632;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            margin: 16px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .step-number {
+            position: absolute;
+            top: -14px;
+            left: 24px;
+            background: #1a5632;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .step-card h3 {
+            color: #1a5632;
+            font-size: 20px;
+            margin-bottom: 12px;
+            padding-top: 4px;
+        }
+        .step-card p { margin-bottom: 10px; color: #555; }
+        .step-card ul { padding-left: 20px; margin: 10px 0; }
+        .step-card li { margin-bottom: 6px; color: #555; }
+
+        .say-box {
+            background: #f0f7f3;
+            border-left: 4px solid #1a5632;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+            font-size: 15px;
+        }
+        .say-box strong { color: #1a5632; }
+        .say-box .command {
+            font-family: monospace;
+            background: #d5e8dc;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .callout {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        .callout-info {
+            background: #d1ecf1;
+            border-color: #0dcaf0;
+        }
+
+        .visual-guide {
+            background: #f5f5f5;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .visual-guide .path {
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .arrow-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+        .arrow-flow .flow-item {
+            background: #e8f5e9;
+            color: #1a5632;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .arrow-flow .arrow { color: #999; font-size: 20px; }
+
+        .faq { margin-top: 40px; }
+        .faq-item {
+            background: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 10px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .faq-item h4 { color: #1a5632; margin-bottom: 6px; font-size: 16px; }
+        .faq-item p { color: #555; font-size: 14px; }
+
+        .commands-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        .commands-table th {
+            background: #1a5632;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .commands-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .commands-table tr:nth-child(even) { background: #f8f9fa; }
+
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: #888;
+            font-size: 13px;
+        }
+        .footer a { color: #1a5632; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 24px; }
+            .hero p { font-size: 15px; }
+            .step-card { padding: 20px; }
+            .arrow-flow { flex-direction: column; }
+            .arrow-flow .arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>My Azan Setup Guide</h1>
+    <p>Get the Azan playing automatically on your Echo device at every prayer time, 5 times a day</p>
+</div>
+
+<div class="container">
+
+    <div class="overview">
+        <p>Setting up automatic Azan takes <strong>3 simple steps</strong> and only needs to be done once.</p>
+        <span class="time-badge">Takes about 5 minutes</span>
+    </div>
+
+    <!-- How it works overview -->
+    <div class="arrow-flow">
+        <span class="flow-item">You set your city</span>
+        <span class="arrow">&rarr;</span>
+        <span class="flow-item">Connect Voice Monkey</span>
+        <span class="arrow">&rarr;</span>
+        <span class="flow-item">Azan plays automatically</span>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step-card" style="margin-top: 32px;">
+        <div class="step-number">1</div>
+        <h3>Open My Azan &amp; Set Your City</h3>
+        <p>Start by enabling the skill and telling it where you are.</p>
+
+        <div class="say-box">
+            <strong>Say to Alexa:</strong><br>
+            <span class="command">"Alexa, open My Azan"</span>
+        </div>
+        <p>Alexa will welcome you and ask for your city. Tell it your city:</p>
+        <div class="say-box">
+            <strong>Say:</strong><br>
+            <span class="command">"Set my city to Dubai"</span>
+            <br><small>(Replace "Dubai" with your actual city)</small>
+        </div>
+
+        <p>My Azan will automatically select the best prayer calculation method for your region (e.g., Dubai method for UAE, ISNA for North America, MWL for Europe).</p>
+
+        <div class="callout callout-info">
+            <strong>Tip:</strong> If you're in a country with a specific method (like Egypt, Turkey, or Pakistan), the skill auto-detects it. You can also manually change it by saying <em>"set calculation method to Egyptian"</em>.
+        </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Enable Automatic Azan</h3>
+        <p>This is the key step that makes the Azan play at every prayer time without you having to open the skill.</p>
+
+        <div class="say-box">
+            <strong>Say to Alexa:</strong><br>
+            <span class="command">"Alexa, tell My Azan to enable automatic azan"</span>
+        </div>
+
+        <p>The skill will send a <strong>setup card</strong> to your Alexa app (on your phone). Open the Alexa app and find the card &mdash; it contains a link to complete setup.</p>
+
+        <div class="visual-guide">
+            <strong>In the Alexa App:</strong><br>
+            <span class="path">Home</span> &rarr; scroll down to see the card from My Azan &rarr; tap the link
+        </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Connect Voice Monkey (One-Time Setup)</h3>
+        <p>Voice Monkey is a free Alexa skill that allows My Azan to send announcements to your Echo device. Here's how to set it up:</p>
+
+        <h4 style="margin-top: 16px; color: #333;">3a. Install Voice Monkey on Alexa</h4>
+        <ul>
+            <li>Open the <strong>Alexa app</strong> on your phone</li>
+            <li>Go to <strong>More</strong> &rarr; <strong>Skills &amp; Games</strong></li>
+            <li>Search for <strong>"Voice Monkey"</strong></li>
+            <li>Tap <strong>Enable</strong> (it's free)</li>
+        </ul>
+
+        <h4 style="margin-top: 16px; color: #333;">3b. Create a Voice Monkey Account</h4>
+        <ul>
+            <li>Open your web browser and go to <strong><a href="https://voicemonkey.io" target="_blank">voicemonkey.io</a></strong></li>
+            <li>Click <strong>Sign Up</strong> &mdash; use the same Amazon account linked to your Alexa</li>
+            <li>Once signed in, go to the <strong>Dashboard</strong></li>
+        </ul>
+
+        <h4 style="margin-top: 16px; color: #333;">3c. Get Your API Token</h4>
+        <ul>
+            <li>In the Voice Monkey dashboard, find <strong>API Token</strong> (shown at the top)</li>
+            <li>Copy it &mdash; it looks like <code>vm-abc123def456...</code></li>
+        </ul>
+
+        <h4 style="margin-top: 16px; color: #333;">3d. Create a Device (Monkey)</h4>
+        <ul>
+            <li>In the dashboard, go to <strong>Devices</strong> &rarr; <strong>Add Device</strong></li>
+            <li>Give it a name like <strong>my-echo</strong> (no spaces, lowercase)</li>
+            <li>Link it to your Echo device when prompted</li>
+        </ul>
+
+        <h4 style="margin-top: 16px; color: #333;">3e. Enter Your Credentials</h4>
+        <ul>
+            <li>Open the link from the Alexa app card (from Step 2)</li>
+            <li>Paste your <strong>API Token</strong> and <strong>Device Name</strong></li>
+            <li>Click <strong>Activate Automatic Azan</strong></li>
+        </ul>
+
+        <div class="callout">
+            <strong>Important:</strong> The device name must match exactly what you created in Voice Monkey (e.g., "my-echo"). It is case-sensitive.
+        </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="step-card" style="text-align: center; background: #e8f5e9; border: 2px solid #1a5632;">
+        <h3 style="color: #1a5632;">You're All Set!</h3>
+        <p style="font-size: 18px; color: #1a5632;">The Azan will now play automatically on your Echo device at every prayer time.</p>
+        <p>Our system checks prayer times every 5 minutes and sends the Azan announcement when it's time. You'll hear the beautiful call to prayer with a mosque image on Echo Show devices.</p>
+    </div>
+
+    <!-- COMMANDS REFERENCE -->
+    <h2 class="section-title">Voice Commands Reference</h2>
+    <table class="commands-table">
+        <thead>
+            <tr><th>What You Want</th><th>Say This</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Open the skill</td><td>"Alexa, open My Azan"</td></tr>
+            <tr><td>Set your city</td><td>"Set my city to London"</td></tr>
+            <tr><td>Enable automatic Azan</td><td>"Enable automatic azan"</td></tr>
+            <tr><td>Disable automatic Azan</td><td>"Disable automatic azan"</td></tr>
+            <tr><td>Play the Azan now</td><td>"Play the Azan"</td></tr>
+            <tr><td>Get all prayer times</td><td>"What are today's prayer times"</td></tr>
+            <tr><td>Get a specific prayer time</td><td>"What time is Fajr"</td></tr>
+            <tr><td>Change Azan reciter</td><td>"Set reciter to Madinah"</td></tr>
+            <tr><td>Change Azan speed</td><td>"Set speed to slow"</td></tr>
+            <tr><td>Change calculation method</td><td>"Set method to ISNA"</td></tr>
+            <tr><td>Set Iqama time</td><td>"Set Fajr Iqama to 20 minutes"</td></tr>
+            <tr><td>Get Hijri date</td><td>"What is today's date"</td></tr>
+            <tr><td>Play Eid Takbeer</td><td>"Play Eid Takbeer"</td></tr>
+            <tr><td>Play Quran</td><td>"Read Quran"</td></tr>
+            <tr><td>Get setup help</td><td>"How do I set up automatic azan"</td></tr>
+            <tr><td>See all options</td><td>"Help"</td></tr>
+        </tbody>
+    </table>
+
+    <!-- AVAILABLE MUEZZINS -->
+    <h2 class="section-title">Available Muezzins</h2>
+    <table class="commands-table">
+        <thead>
+            <tr><th>Name</th><th>Origin</th><th>Command</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Sheikh Ali Ahmed Mullah</td><td>Masjid al-Haram, Makkah</td><td>"Set reciter to Makkah"</td></tr>
+            <tr><td>Madinah Muezzin</td><td>Masjid an-Nabawi, Madinah</td><td>"Set reciter to Madinah"</td></tr>
+            <tr><td>Mishary Rashid Al-Afasy</td><td>Kuwait</td><td>"Set reciter to Afasy"</td></tr>
+            <tr><td>Abdul Basit Abdul Samad</td><td>Egypt</td><td>"Set reciter to Abdul Basit"</td></tr>
+            <tr><td>Abdur-Rahman As-Sudais</td><td>Masjid al-Haram, Makkah</td><td>"Set reciter to Sudais"</td></tr>
+            <tr><td>Saad Al-Ghamidi</td><td>Saudi Arabia</td><td>"Set reciter to Ghamidi"</td></tr>
+        </tbody>
+    </table>
+
+    <!-- FAQ -->
+    <div class="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <h4>Is Voice Monkey free?</h4>
+            <p>Yes! Voice Monkey has a free plan that covers everything needed for automatic Azan.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Do I need to keep the My Azan skill open?</h4>
+            <p>No. Once set up, the Azan plays automatically even when you're not using the skill. Our system runs in the background and triggers announcements via Voice Monkey.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>What if I move to a different city?</h4>
+            <p>Just open My Azan and say "set my city to [new city]". The prayer times will update automatically.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Can I use it on multiple Echo devices?</h4>
+            <p>Yes! Create multiple "monkey devices" in Voice Monkey (one per Echo) and contact us to link them to your account.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Why Voice Monkey and not Alexa Routines?</h4>
+            <p>Alexa Routines require you to manually set each prayer time and update them monthly as times shift. Voice Monkey handles this automatically &mdash; prayer times are always accurate with zero maintenance.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Will it work during Ramadan?</h4>
+            <p>Yes! During Ramadan, the skill automatically provides Suhoor and Iftar times, and the Azan includes relevant Ramadan features.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>How do I stop the automatic Azan?</h4>
+            <p>Say "Alexa, tell My Azan to disable automatic azan". You can re-enable it any time.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>The prayer times seem off. What should I do?</h4>
+            <p>Try changing the calculation method. Say "set method to Dubai" (for UAE), "set method to Egyptian" (for Egypt/Levant), "set method to ISNA" (for North America), etc. Different methods may differ by a few minutes.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>My Azan &mdash; Your Islamic Prayer Companion on Alexa</p>
+        <p><a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms-of-use.html">Terms of Use</a></p>
+    </div>
+</div>
+
+</body>
+</html>
